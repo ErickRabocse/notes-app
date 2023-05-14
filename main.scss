@@ -1,0 +1,136 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//STYLES
+$green: rgb(17, 75, 95);
+$blue: rgb(172, 237, 255);
+$purple: rgb(141, 128, 173);
+$orange: rgb(237, 37, 78);
+
+//GENERAL
+body {
+  background-color: $green;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 15px;
+}
+
+//MAIN CONTAINER
+.container {
+  width: 90%;
+  background-color: $blue;
+  display: flex;
+  flex-direction: column;
+}
+//CREATION SECTION
+.creation {
+  margin-bottom: 20px;
+  &_header {
+    text-align: center;
+    color: $orange;
+    margin: 10px 0;
+  }
+  &_input {
+    display: grid;
+    grid-template-areas:
+      "title title_text title_text. "
+      "content content_text content_text. "
+      ". button . .";
+  }
+  &_label_title {
+    grid-area: title;
+    margin-right: 10px;
+    text-align: right;
+  }
+  &_title {
+    grid-area: title_text;
+    margin-bottom: 10px;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+  }
+  &_label_content {
+    text-align: right;
+    margin-right: 10px;
+    grid-area: content;
+  }
+  &_content {
+    grid-area: content_text;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+  }
+  &_btn {
+    grid-area: button;
+    width: 70px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: $orange;
+    color: white;
+  }
+}
+
+//DISPLAY
+.display {
+  padding: 20px;
+}
+.display > p {
+  margin-bottom: 20px;
+}
+
+#notes_section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+//INDIVIDUAL NOTES
+.noteStyle {
+  background-color: white;
+  padding: 10px;
+  width: 200px;
+}
+.titleStyle {
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.dateStyle {
+  font-weight: 300;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+}
+.contentStyle {
+  text-transform: capitalize;
+}
+
+//ICONS & BUTTONS
+.savebtn,
+.editbtn,
+.deletebtn {
+  margin: 10px 3px 0px;
+  padding: 5px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  border: 1px solid $orange;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.savebtn:hover,
+.editbtn:hover,
+.deletebtn:hover {
+  background-color: black;
+  color: white;
+  border: none;
+}

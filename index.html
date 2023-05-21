@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Practicas</title>
+    <title>To do lists</title>
   </head>
   <body>
     <main class="container">
       <section class="creation">
-        <h1 class="creation_header">Quick notes</h1>
+        <h1 class="title"></h1>
+        <h2 class="creation_header">Quick notes</h2>
         <!-- SECTION WHERE THE NOTES ARE CREATED -->
-        <form action="" id="notes_form" class="creation_input">
+        <form id="notes_form" class="creation_input">
           <label for="titleElement" class="creation_label_title">Title</label>
           <input
             type="text"
             class="creation_title"
             id="titleElement"
-            name="title"
             placeholder="Type the title of your note"
             required
           />
@@ -26,7 +26,6 @@
           <textarea
             class="creation_content"
             id="contentElement"
-            name="content"
             cols="20"
             rows="5"
             placeholder="Type your note here."
@@ -34,13 +33,50 @@
           ></textarea>
           <button type="submit" class="creation_btn">Create</button>
         </form>
+        <!-- SECTION WHERE THE NOTES ARE SHOWN -->
         <section class="display">
-          <p>Your notes will appear down below</p>
+          <h3 class="display_subheader">Notes section 👇</h3>
           <div class="notasGrid">
-            <!-- SECTION WHERE THE NOTES ARE SHOWN -->
             <div id="notes_section"></div>
           </div>
         </section>
+      </section>
+      <!-- SECTION WHERE THE TO DO LISTS ARE CREATED -->
+      <hr />
+      <header class="to-do">
+        <h2 class="to-do-header">Task list</h2>
+        <form id="new-task-form" class="to-do-input">
+          <input
+            type="text"
+            id="new-task-input"
+            placeholder="What are you planning to do?"
+          />
+          <input type="submit" id="new-task-submit" value="Add task" />
+        </form>
+      </header>
+      <section class="task-list">
+        <h3 class="to-do-subheader">To do</h3>
+        <div id="tasks">
+          <!-- <div class="task">
+            <div class="content">
+              <input type="text" class="text" value="My task" readonly />
+            </div>
+            <div class="actions">
+              <button class="todo-edit">Edit</button>
+              <button class="todo-delete">Delete</button>
+            </div>
+          </div>
+
+          <div class="task">
+            <div class="content">
+              <input type="text" class="text" value="My task" readonly />
+            </div>
+            <div class="actions">
+              <button class="todo-edit">Edit</button>
+              <button class="todo-delete">Delete</button>
+            </div>
+          </div> -->
+        </div>
       </section>
     </main>
     <script src="./js/index.js"></script>

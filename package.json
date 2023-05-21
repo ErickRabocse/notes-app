@@ -11,5 +11,13 @@
     "sass": "^1.62.1"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErickRabocse/notes-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ErickRabocse/notes-app/issues"
+  },
+  "homepage": "https://github.com/ErickRabocse/notes-app#readme",
   "description": ""
 }

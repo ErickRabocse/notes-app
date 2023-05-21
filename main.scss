@@ -6,16 +6,17 @@
   box-sizing: border-box;
 }
 
-//STYLES
+//STYLES VARIABLES
 $green: rgb(17, 75, 95);
-$blue: rgb(172, 237, 255);
+$blue: rgba(172, 237, 255, 0.737);
 $purple: rgb(141, 128, 173);
-$orange: rgb(237, 37, 78);
+$purple: #8a5cf6e0;
+$grey: rgba(141, 148, 176, 0.741);
 
 //GENERAL
 body {
   background-color: $green;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,11 +33,13 @@ body {
 }
 //CREATION SECTION
 .creation {
-  margin-bottom: 20px;
   &_header {
     text-align: center;
-    color: $orange;
     margin: 10px 0;
+    color: white;
+    // background-image: linear-gradient(to right, rgb(244, 168, 46), white);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
   }
   &_input {
     display: grid;
@@ -76,7 +79,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: $orange;
+    background-color: $purple;
     color: white;
   }
 }
@@ -84,15 +87,23 @@ body {
 //DISPLAY
 .display {
   padding: 20px;
-}
-.display > p {
-  margin-bottom: 20px;
+  text-align: center;
+  &_subheader {
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+    color: white;
+  }
 }
 
 #notes_section {
   display: flex;
-  gap: 30px;
   flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-evenly;
+  min-height: 100px;
+  border: 1px dashed white;
+  padding: 10px;
+  background-color: $grey;
 }
 
 //INDIVIDUAL NOTES
@@ -100,6 +111,9 @@ body {
   background-color: white;
   padding: 10px;
   width: 200px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .titleStyle {
   text-transform: uppercase;
@@ -112,6 +126,8 @@ body {
 }
 .contentStyle {
   text-transform: capitalize;
+  padding: 5px 0;
+  border: none;
 }
 
 //ICONS & BUTTONS
@@ -122,7 +138,7 @@ body {
   padding: 5px;
   font-size: 0.7rem;
   cursor: pointer;
-  border: 1px solid $orange;
+  border: 1px solid $purple;
   background-color: white;
   border-radius: 4px;
 }
@@ -133,4 +149,91 @@ body {
   background-color: black;
   color: white;
   border: none;
+}
+
+//TODO HEADER
+hr {
+  height: 15px;
+  background-color: $green;
+  border: none;
+}
+.to-do {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  &-header {
+    margin: 10px 0;
+    color: white;
+  }
+  &-input {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 80px;
+    justify-content: center;
+    column-gap: 10px;
+  }
+}
+
+//TODO SECTION
+.to-do {
+  &-subheader {
+    color: white;
+    margin-top: 20px;
+    padding-bottom: 10px;
+  }
+}
+.task {
+  display: flex;
+  line-height: 60px;
+  column-gap: 10px;
+  margin: 0 auto;
+  width: 100%;
+}
+.text {
+  padding: 5px;
+  min-width: 300px;
+  max-width: 500px;
+}
+.task-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+  min-height: 100%;
+}
+#new-task-submit,
+.todo-edit,
+.todo-delete {
+  background-color: $purple;
+  color: white;
+  margin: 3px 10px 3px 0;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: white;
+    color: $purple;
+  }
+}
+#new-task-input,
+.text {
+  background-color: $grey;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 3px;
+  line-height: 30px;
+}
+#new-task-input::placeholder {
+  color: white;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  // margin: 0;
+  outline: none;
 }

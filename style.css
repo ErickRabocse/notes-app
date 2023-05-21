@@ -8,7 +8,7 @@
 
 body {
   background-color: rgb(17, 75, 95);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,18 +18,15 @@ body {
 
 .container {
   width: 90%;
-  background-color: rgb(172, 237, 255);
+  background-color: rgba(172, 237, 255, 0.737);
   display: flex;
   flex-direction: column;
 }
 
-.creation {
-  margin-bottom: 20px;
-}
 .creation_header {
   text-align: center;
-  color: rgb(237, 37, 78);
   margin: 10px 0;
+  color: white;
 }
 .creation_input {
   display: grid;
@@ -66,28 +63,38 @@ body {
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: rgb(237, 37, 78);
+  background-color: rgba(138, 92, 246, 0.8784313725);
   color: white;
 }
 
 .display {
   padding: 20px;
+  text-align: center;
 }
-
-.display > p {
-  margin-bottom: 20px;
+.display_subheader {
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  color: white;
 }
 
 #notes_section {
   display: flex;
-  gap: 30px;
   flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-evenly;
+  min-height: 100px;
+  border: 1px dashed white;
+  padding: 10px;
+  background-color: rgba(141, 148, 176, 0.741);
 }
 
 .noteStyle {
   background-color: white;
   padding: 10px;
   width: 200px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .titleStyle {
@@ -103,6 +110,8 @@ body {
 
 .contentStyle {
   text-transform: capitalize;
+  padding: 5px 0;
+  border: none;
 }
 
 .savebtn,
@@ -112,7 +121,7 @@ body {
   padding: 5px;
   font-size: 0.7rem;
   cursor: pointer;
-  border: 1px solid rgb(237, 37, 78);
+  border: 1px solid rgba(138, 92, 246, 0.8784313725);
   background-color: white;
   border-radius: 4px;
 }
@@ -123,4 +132,95 @@ body {
   background-color: black;
   color: white;
   border: none;
+}
+
+hr {
+  height: 15px;
+  background-color: rgb(17, 75, 95);
+  border: none;
+}
+
+.to-do {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+.to-do-header {
+  margin: 10px 0;
+  color: white;
+}
+.to-do-input {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 80px;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.to-do-subheader {
+  color: white;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.task {
+  display: flex;
+  line-height: 60px;
+  column-gap: 10px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.text {
+  padding: 5px;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+  min-height: 100%;
+}
+
+#new-task-submit,
+.todo-edit,
+.todo-delete {
+  background-color: rgba(138, 92, 246, 0.8784313725);
+  color: white;
+  margin: 3px 10px 3px 0;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+#new-task-submit:hover,
+.todo-edit:hover,
+.todo-delete:hover {
+  background-color: white;
+  color: rgba(138, 92, 246, 0.8784313725);
+}
+
+#new-task-input,
+.text {
+  background-color: rgba(141, 148, 176, 0.741);
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 3px;
+  line-height: 30px;
+}
+
+#new-task-input::placeholder {
+  color: white;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  outline: none;
 }

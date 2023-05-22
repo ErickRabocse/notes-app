@@ -34,7 +34,7 @@ function crearNota() {
   } else {
     notesArray = JSON.parse(notes);
   }
-  //Obtener los valores del formulario
+  //Obtener los elementos del formulario
   const id = notesArray.length;
   const title = document.querySelector("#titleElement");
   const content = document.querySelector("#contentElement");
@@ -64,7 +64,6 @@ function crearNota() {
   cleanView();
   //Actualizar la interfaz de usuario para mostrar la nueva nota
   renderViewNotes();
-  console.log(notesArray);
 }
 
 const EliminarNota = (e) => {
@@ -87,9 +86,14 @@ const EliminarNota = (e) => {
   renderViewNotes();
 };
 
+//
+
 function modificarNota(e) {
   //Obterner la nota con el ID proporcionado
   let button = e.target;
+  let noteContainer = button.parentElement;
+  let uniqueID = noteContainer.getAttribute("id");
+  console.log("Note container ID: " + uniqueID);
   let textArea = button.previousElementSibling;
   let title =
     button.previousElementSibling.previousElementSibling.previousElementSibling;
@@ -100,7 +104,6 @@ function modificarNota(e) {
   } else {
     notesArray = JSON.parse(notes);
   }
-  console.log(notesArray);
   //MODIFICANDO EL CONTENIDO DE LA NOTA
   if (button.innerText.toLocaleLowerCase() === "edit") {
     title.contentEditable = true;
@@ -153,6 +156,7 @@ function renderViewNotes() {
     editBtnElement.classList.add("editbtn");
     deleteBtnElement.classList.add("deletebtn");
     //agregar atributos indices a los botones
+    noteDivElement.setAttribute("id", index);
     editBtnElement.setAttribute("index", index);
     deleteBtnElement.setAttribute("index", index);
     contentDivElement.setAttribute("readonly", "readonly");

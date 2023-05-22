@@ -13,25 +13,11 @@ class NotaSimple extends Nota {
     super(id, titulo, contenido, fechaCreacion);
   }
 }
-//subclase
-class ListaTareas extends Nota {
-  constructor(id, titulo, contenido, fechaCreacion, tareas) {
-    super(id, titulo, contenido, fechaCreacion);
-    this.tareas = tareas;
-  }
-}
-//subclase
-class recordatorio extends Nota {
-  constructor(id, titulo, contenido, fechaCreacion, fechaRecordatorio) {
-    super(id, titulo, contenido, fechaCreacion);
-    this.fechaRecordatorio = fechaRecordatorio;
-  }
-}
 //Lógica GENERAL
 /*SELECTING THE FORM & DISPLAY CONTAINERS*/
 const elementForm = document.querySelector("#notes_form");
 const notesDIvElement = document.querySelector("#notes_section");
-const notesArray = [];
+// const notesArray = [];
 
 /*INPUT FORM + CLICK*/
 elementForm.addEventListener("submit", (e) => {
@@ -41,6 +27,13 @@ elementForm.addEventListener("submit", (e) => {
 
 //Lógica FUNCIONES
 function crearNota() {
+  //Crear un objeto JSON en el localStorage y llamarlo para usarlo (agregar, eliminar, editar, elementos a él)
+  let notes = localStorage.getItem("notes");
+  if (notes === null) {
+    notesArray = [];
+  } else {
+    notesArray = JSON.parse(notes);
+  }
   //Obtener los valores del formulario
   const id = notesArray.length;
   const title = document.querySelector("#titleElement");
@@ -62,20 +55,26 @@ function crearNota() {
   const newNote = new NotaSimple(id, title.value, content.value, shortDate);
   //Agregar la nota a un array de notas
   notesArray.push(newNote);
+  //Guardar nota en Local Storage
+  localStorage.setItem("notes", JSON.stringify(notesArray));
+  //limpiar el formulario
+  title.value = "";
+  content.value = "";
   //Resetear contenido
   cleanView();
   //Actualizar la interfaz de usuario para mostrar la nueva nota
-  renderViewNotes(notesArray);
-}
-
-function guardarNotas(notas) {
-  //Guardar la nota en la memoria del navegador
-  localStorage.setItem("notas", JSON.stringify(notas));
-  //
-  //
+  renderViewNotes();
+  console.log(notesArray);
 }
 
 const EliminarNota = (e) => {
+  //Llamar al arreglo de notas almacenado en localStorage
+  let notes = localStorage.getItem("notes");
+  if (notes === null) {
+    notesArray = [];
+  } else {
+    notesArray = JSON.parse(notes);
+  }
   //Obterner la nota con el ID proporcionado
   const index = e.target.getAttribute("index");
   const position = parseInt(index);
@@ -83,64 +82,67 @@ const EliminarNota = (e) => {
   notesArray.splice(position, 1);
   cleanView();
   //Guardar notas en memoria
-  // localStorage.setItem("notas", JSON.parse(notas));
+  localStorage.setItem("notes", JSON.stringify(notesArray));
   //Actualizar la interfaz del usuario para reflejar los cambio
-  renderViewNotes(notesArray);
+  renderViewNotes();
 };
 
-//the "e" between the parenthesis is the event!
-//e.target is the element clicked (line:164), in this case a "button"
 function modificarNota(e) {
   //Obterner la nota con el ID proporcionado
   let button = e.target;
-  //The container of each note is accesed via "parentElement"
-  let note = button.parentElement;
   let textArea = button.previousElementSibling;
   let title =
     button.previousElementSibling.previousElementSibling.previousElementSibling;
-
+  //Llamar al arreglo de notas almacenado en localStorage
+  let notes = localStorage.getItem("notes");
+  if (notes == null) {
+    notesArray = [];
+  } else {
+    notesArray = JSON.parse(notes);
+  }
+  console.log(notesArray);
+  //MODIFICANDO EL CONTENIDO DE LA NOTA
   if (button.innerText.toLocaleLowerCase() === "edit") {
     title.contentEditable = true;
     title.style.color = "#8a5cf6e0";
     textArea.removeAttribute("readonly");
     textArea.focus();
+    textArea.style.color = "#8a5cf6e0";
     button.innerHTML = "Save";
   } else {
     title.contentEditable = false;
     title.style.color = "black";
     textArea.setAttribute("readonly", "readonly");
+    textArea.style.color = "black";
     button.innerHTML = "Edit";
   }
-
-  //Actualizar la interfaz de usuario para reflejar los cambios
-  //cleanView();
-  //Actualizar la interfaz del usuario para reflejar los cambio
-  //renderViewNotes(notesArray);
-}
-
-function cargarNotas() {
-  const notasJSON = localStorage.getItem("notas");
-  if (notasJSON) {
-    let result = JSON.parse(notasJSON); //cambia el formato de JSON para que se pueda leer. Retorna un arreglo de objetos
-    return result;
-  } else {
-    let result = [];
-    return result;
-  }
+  //SELECCIONANDO LA NOTA QUE SERÁ EDITADA
+  const currentNote = notesArray.find((el) => {
+    return el.id === Number(button.getAttribute("index"));
+  });
+  //GUARDANDO EL CONTENIDO MODIFICADO EN LA NOTA DEL OBJETO NOTESARRAY
+  currentNote.titulo = title.innerHTML;
+  currentNote.contenido = textArea.value;
+  localStorage.setItem("notes", JSON.stringify(notesArray));
 }
 
 function cleanView() {
   notesDIvElement.innerHTML = "";
 }
 
-function renderViewNotes(notesArray) {
+function renderViewNotes() {
+  let notes = localStorage.getItem("notes");
+  if (notes == null) {
+    notesArray = [];
+  } else {
+    notesArray = JSON.parse(notes);
+  }
   notesArray.forEach((note, index) => {
     //crear componenentes de la nota
     const noteDivElement = document.createElement("div");
     const h3TitleElement = document.createElement("h3");
     const h4dateElement = document.createElement("h4");
     const contentDivElement = document.createElement("textarea");
-    // const saveBtnElement = document.createElement("button");
     const editBtnElement = document.createElement("button");
     const deleteBtnElement = document.createElement("button");
     //agregar estilos
@@ -148,24 +150,20 @@ function renderViewNotes(notesArray) {
     h3TitleElement.classList.add("titleStyle");
     h4dateElement.classList.add("dateStyle");
     contentDivElement.classList.add("contentStyle");
-    // saveBtnElement.classList.add("savebtn");
     editBtnElement.classList.add("editbtn");
     deleteBtnElement.classList.add("deletebtn");
     //agregar atributos indices a los botones
-    // saveBtnElement.setAttribute("index", index);
     editBtnElement.setAttribute("index", index);
     deleteBtnElement.setAttribute("index", index);
     contentDivElement.setAttribute("readonly", "readonly");
     //agregar eventos a los botones
     editBtnElement.addEventListener("click", modificarNota);
-    // saveBtnElement.addEventListener("click", guardarNotas);
     deleteBtnElement.addEventListener("click", EliminarNota);
     //agregar contenido a la nota
     h3TitleElement.innerHTML = note.titulo;
     contentDivElement.value = note.contenido;
     h4dateElement.innerHTML = note.fechaCreacion;
     //agregar contenido a los botones
-    // saveBtnElement.textContent = "Save";
     editBtnElement.textContent = "Edit";
     deleteBtnElement.textContent = "Delete";
     //agrear elementos al DOM
@@ -173,11 +171,11 @@ function renderViewNotes(notesArray) {
     noteDivElement.appendChild(h3TitleElement);
     noteDivElement.appendChild(h4dateElement);
     noteDivElement.appendChild(contentDivElement);
-    // noteDivElement.appendChild(saveBtnElement);
     noteDivElement.appendChild(editBtnElement);
     noteDivElement.appendChild(deleteBtnElement);
   });
 }
+renderViewNotes();
 
 //****************TO DO LIST
 window.addEventListener("load", () => {

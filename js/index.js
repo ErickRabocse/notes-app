@@ -34,8 +34,9 @@ function crearNota() {
   } else {
     notesArray = JSON.parse(notes);
   }
+
   //Obtener los elementos del formulario
-  const id = notesArray.length;
+  let id;
   const title = document.querySelector("#titleElement");
   const content = document.querySelector("#contentElement");
   const dateObj = new Date();
@@ -91,9 +92,9 @@ const EliminarNota = (e) => {
 function modificarNota(e) {
   //Obterner la nota con el ID proporcionado
   let button = e.target;
-  let noteContainer = button.parentElement;
-  let uniqueID = noteContainer.getAttribute("id");
-  console.log("Note container ID: " + uniqueID);
+  // let noteContainer = button.parentElement;
+  // let uniqueID = noteContainer.getAttribute("id");
+  // console.log("Note container ID: " + uniqueID);
   let textArea = button.previousElementSibling;
   let title =
     button.previousElementSibling.previousElementSibling.previousElementSibling;
@@ -104,6 +105,13 @@ function modificarNota(e) {
   } else {
     notesArray = JSON.parse(notes);
   }
+  // notesArray.find((el, index) => {
+  //   if (el.id === index) {
+  //     el.id = uniqueID;
+  //   }
+
+  //   console.log(el);
+  // });
   //MODIFICANDO EL CONTENIDO DE LA NOTA
   if (button.innerText.toLocaleLowerCase() === "edit") {
     title.contentEditable = true;
@@ -121,6 +129,7 @@ function modificarNota(e) {
   }
   //SELECCIONANDO LA NOTA QUE SERÁ EDITADA
   const currentNote = notesArray.find((el) => {
+    console.log("ID edit function: ", el.id);
     return el.id === Number(button.getAttribute("index"));
   });
   //GUARDANDO EL CONTENIDO MODIFICADO EN LA NOTA DEL OBJETO NOTESARRAY
@@ -141,6 +150,11 @@ function renderViewNotes() {
     notesArray = JSON.parse(notes);
   }
   notesArray.forEach((note, index) => {
+    //asignar el id=index a cada nota
+    console.log("ESTA ES UNA NOTA: ", note);
+    console.log("este es su id antes: ", note.id);
+    note.id = index;
+    console.log("este es su id despues: ", note.id);
     //crear componenentes de la nota
     const noteDivElement = document.createElement("div");
     const h3TitleElement = document.createElement("h3");
@@ -178,6 +192,7 @@ function renderViewNotes() {
     noteDivElement.appendChild(editBtnElement);
     noteDivElement.appendChild(deleteBtnElement);
   });
+  localStorage.setItem("notes", JSON.stringify(notesArray));
 }
 renderViewNotes();
 

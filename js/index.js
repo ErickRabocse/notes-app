@@ -17,7 +17,6 @@ class NotaSimple extends Nota {
 /*SELECTING THE FORM & DISPLAY CONTAINERS*/
 const elementForm = document.querySelector("#notes_form");
 const notesDIvElement = document.querySelector("#notes_section");
-// const notesArray = [];
 
 /*INPUT FORM + CLICK*/
 elementForm.addEventListener("submit", (e) => {
@@ -92,9 +91,6 @@ const EliminarNota = (e) => {
 function modificarNota(e) {
   //Obterner la nota con el ID proporcionado
   let button = e.target;
-  // let noteContainer = button.parentElement;
-  // let uniqueID = noteContainer.getAttribute("id");
-  // console.log("Note container ID: " + uniqueID);
   let textArea = button.previousElementSibling;
   let title =
     button.previousElementSibling.previousElementSibling.previousElementSibling;
@@ -105,13 +101,6 @@ function modificarNota(e) {
   } else {
     notesArray = JSON.parse(notes);
   }
-  // notesArray.find((el, index) => {
-  //   if (el.id === index) {
-  //     el.id = uniqueID;
-  //   }
-
-  //   console.log(el);
-  // });
   //MODIFICANDO EL CONTENIDO DE LA NOTA
   if (button.innerText.toLocaleLowerCase() === "edit") {
     title.contentEditable = true;
